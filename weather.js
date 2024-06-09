@@ -1,4 +1,4 @@
-
+console.log("no-error");
 let apikey = "68568b145e6d3451b2d919246b359f1d"
 let url = "https://api.openweathermap.org/data/2.5/weather?units=metric&appid=";
 
