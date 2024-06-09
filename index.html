@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="https://m.media-amazon.com/images/I/51ZgFK-FbwL.png"> 
+</head>
+<style>
+    *{
+        padding: 0px;
+        margin: 0px;
+        border: border-box; 
+        font-family: system-ui;
+    }
+    body{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #a09494;
+    }
+    .container{
+        background-image: linear-gradient(145deg,#7cd5ff,#50c8ffd0,rgba(1, 112, 156, 0.877));
+        height: 20rem;
+        width: 14rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-between;
+        color: white;
+    }
+    #nav{
+        height: 2rem;
+        width: 14.5rem;
+        /* background-color: #251717; */
+        border-radius: 1rem;
+        display: flex;
+        justify-content: space-between;
+    }
+    input{
+        height: 2rem;
+        width: 10.5rem;
+        border: none;
+        padding-left: 10px;
+        border-radius: 1rem;
+        outline: none;
+    }
+    button{
+        height: 2rem;
+        width: 2rem;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        border: none;
+        margin-right: 1rem;
+        background-color: white;
+        cursor: pointer;
+        color: rgb(112, 130, 231);
+        transition: all 100ms ease ;
+        /* box-shadow: 6px 6px 25px black,inset -10px -10px 10px rgb(255, 255, 255); */
+    }
+    #icon{
+        height: 5rem;
+        width: 5rem;
+        
+    }
+    button:hover{
+        background-color: #003c58;
+        color: white;
+        /* font-size: 1.3rem; */
+    }
+    button:active{
+        opacity: 0.2;
+    }
+    #fortext{
+        height: 4rem;
+        width: 11rem;
+        text-align: center;
+    }
+    #fortext h1{
+        font-size: 2.7rem;
+    }
+    .details{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 5rem;
+        width: 12rem;
+        /* margin-bottom: 1rem; */
+    }
+    .humid{
+        height: 1rem;
+        width: 5rem;
+        font-size: 0.9rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    #image{
+        height: 6rem;
+        /* width: 4rem; */
+    }
+    #place{
+        font-size: 1.2rem;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 700;
+        text-shadow: 7px 5px 10px rgb(0, 0, 0);
+    }
+    #error-text{
+        font-size: 1rem;
+        position: absolute;
+        left: 27.5rem;
+        top: 7.5rem;
+        color: red;
+        z-index: 3;
+        display: none;
+    }
+</style>
+<body>
+    <div class="container">
+        <div id="nav">
+            <input type="text" placeholder="search for place" id="input" spellcheck="false">
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div id="error-text">
+            <p>Invalid city name..</p>
+        </div>
+        <div id="icon">
+            <img id="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAVVJREFUaN7tmckNgzAQRV1CSqAEl+ASKIFjjpTgEiiBElICJeTKjXRAB5MZyUgOyoKNx8hkLL1LNv6D8RoFAKpklAiIgAiIgAiIwMsLGxs8rjXSI3cE3nB379cqYdstgIEsMn8I/Qn6vD1UAAMYZAoMvoa+r7ML4EWbncHXNNkEGMLvkggSYAy/ULMJ4I9XEZ0VIjp3xSVwYw6/cEsu4EYcyIhOLdBnFuhTC3DXPs3SgzeLD3TdcRw1Yj10sABz+VBgsxrpLgSG7RB4Qxcq0DKGp6AtMnsBB3e34QttiIBlEjAuPEQwhQh0HHff1fgcKQBHCtCA0GCIKja8/yToKeYsoaXuzYY6D6HL1YlpWGwSBvfR3MPo7rr/geWeyHonYJkw3EsJqxjafyzmil9On2JDU/yW8hSb+lMcq5ziYCvB0eJ0+NFiMYe78v+ACIiACIiACJTEEyDCTi8sMWUSAAAAAElFTkSuQmCC">
+        </div>
+        <div id="fortext">
+            <h1 id="temp" onchange="sun()">--°C</h1>
+            <p id="place">City</p>
+        </div>
+        <!-- for details -->
+        <div class="details">
+            <div class="humid">
+                <i class="fa-solid fa-water"></i>
+                <p id="humidity">--%</p>
+                <p>Humidity</p>
+            </div>
+            <div class="humid">
+                <i class="fa-solid fa-wind"></i>
+                <p id="windspeed">-- km/h</p>
+                <p>Wind Speed</p>
+            </div>
+        </div>
+    </div>
+    <script src="/port folio/java/weather.js"></script>
+</body>
+</html>
